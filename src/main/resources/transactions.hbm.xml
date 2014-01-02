@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.springapp.mvc.model.TransactionEntry" table="transactions">
+        <meta attribute="class-description">
+            This class contains the employee detail.
+        </meta>
+        <id name="uniqueId" type="int" column="uniqueId">
+        </id>
+        <property name="residentId" type="string" column="resident_id"/>
+        <property name="transactionId" type="string" column="transaction_id"/>
+        <property name="amount" type="double" column="amount"/>
+        <property name="timestamp" type="date" column="timestamp"/>
+    </class>
+</hibernate-mapping>
