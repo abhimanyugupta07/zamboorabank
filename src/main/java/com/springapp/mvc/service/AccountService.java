@@ -25,7 +25,7 @@ import java.util.List;
 public class AccountService {
 
     private static SessionFactory factory = HibernateUtilities.getSessionFactory();
-    public String info(String residentId) {
+    public String info(String residentId,int number) {
 
         Session session = factory.openSession();
         Transaction tx = session.beginTransaction();
@@ -35,6 +35,7 @@ public class AccountService {
         String hql = HibernateQueries.getAccountsQueryBasedonResidentId(residentId);
         System.out.println("\n\n\n\n The query string is :::" + hql);
         org.hibernate.Query query = session.createQuery(hql);
+
         List<Account> results = query.list();
 
         if (results == null || results.isEmpty())
@@ -45,12 +46,17 @@ public class AccountService {
 
         Account userAccount = results.get(0);
         String info = gson.toJson(userAccount);
-        response.put("summary", ((JSONObject)JSONValue.parse(info)));
+        response.put("summary", JSONValue.parse(info));
 
         tx = session.getTransaction();
         hql = HibernateQueries.getTransactionsQueryBasedonResidentId(residentId);
         System.out.println("\n\n\n\n The query string is :::" + hql);
         org.hibernate.Query transactionQuery = session.createQuery(hql);
+
+        if (number!=-1) {
+            transactionQuery.setMaxResults(number);
+        }
+
         List<TransactionEntry> transactions = transactionQuery.list();
 
         JSONArray transactionsJson = new JSONArray();

@@ -9,7 +9,6 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -36,9 +35,6 @@ public class TransactionService {
     public String credit(String residentId, double amount) {
         String transactionId = PayUUtilities.getTransactionId();
         Date timestamp = new Date();
-
-
-
         TransactionEntry entry = new TransactionEntry(residentId,amount,transactionId, timestamp);
         Session session = factory.openSession();
         String response = null;
@@ -63,7 +59,6 @@ public class TransactionService {
     public String debit(String residentId, double amount) {
         String transactionId = PayUUtilities.getTransactionId();
         Date timestamp = new Date();
-
         TransactionEntry entry = new TransactionEntry(residentId,-amount,transactionId, timestamp);
         Session session = factory.openSession();
         String response = null;
@@ -87,7 +82,6 @@ public class TransactionService {
     }
 
     private String updateAccountBalance(String residentId, double amount, Session session, boolean isCredit) {
-
         Double cashBackPercentage = Double.parseDouble(env.getProperty("cashback_percentage"));
         Transaction tx = session.getTransaction();
         String hql = HibernateQueries.getAccountsQueryBasedonResidentId(residentId);
@@ -153,7 +147,6 @@ public class TransactionService {
         try {
             tx = session.beginTransaction();
             session.save(entry);
-            //tx.commit();
         }
         catch(HibernateException e) {
             if (tx!=null) tx.rollback();

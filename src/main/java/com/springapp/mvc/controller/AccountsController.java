@@ -29,8 +29,19 @@ public class AccountsController {
     @Autowired private AccountService accountService;
 
     @RequestMapping(value = "/info/{resident_id}", method = RequestMethod.GET,produces= MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody String getAccountInfo (@PathVariable("resident_id") String residentId) {
-        return accountService.info(residentId);
+    public @ResponseBody String getAccountInfo (@PathVariable("resident_id") String residentId,@RequestParam(value="number", required=false) String number) {
+
+        int numberTransactions;
+        if (number == null) {
+            number = "-1";
+        }
+        try {
+            numberTransactions = Integer.parseInt(number);
+        }
+        catch (Exception e) {
+            return "{\"Error\":\"Invalid Number format for the parameter number\"}";
+        }
+        return accountService.info(residentId, numberTransactions);
     }
 
 }

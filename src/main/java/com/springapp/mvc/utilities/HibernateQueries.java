@@ -15,6 +15,6 @@ public class HibernateQueries {
 
 
     public static String getTransactionsQueryBasedonResidentId(String residentId) {
-        return GET_ALL_TRANSACTIONS_BASED_ON_RESIDENT_ID+residentId+",";
+        return GET_ALL_TRANSACTIONS_BASED_ON_RESIDENT_ID+residentId+"'";
     }
 }
