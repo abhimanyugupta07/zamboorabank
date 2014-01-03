@@ -13,6 +13,6 @@
         <property name="residentId" type="string" column="resident_id"/>
         <property name="transactionId" type="string" column="transaction_id"/>
         <property name="amount" type="double" column="amount"/>
-        <property name="timestamp" type="date" column="timestamp"/>
+        <property name="timestamp" type="timestamp" column="timestamp"/>
     </class>
 </hibernate-mapping>

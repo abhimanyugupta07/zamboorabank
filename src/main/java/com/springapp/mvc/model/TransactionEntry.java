@@ -25,7 +25,7 @@ public class TransactionEntry {
     private double amount;
     private String transactionId;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:MM:SS")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date timestamp;
 
     public TransactionEntry() {}
