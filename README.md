@@ -38,25 +38,25 @@ Returns: JSON response containing the information about the user account along w
     ]
   } 
 
-2. POST /transactions/credit?resident_id=xyz&amount=x
+2. POST /account/{resident_id}/credit?&amount=x
 
 It takes two request parameters resident_id and amount to be credited.
 
 Returns: JSON response containing either the success or error message along with the updated account balance.
 
-    Sample API Call: localhost:8080/transactions/credit?resident_id=abhi&amount=1000
+    Sample API Call: localhost:8080/account/abhi/credit?amount=1000
     Sample Response: {
       "Current Account Balance": 1000,
       "Success": "Credited account with 1000.0"
     }
 
-3. POST /transactions/debit?resident_id=xyz&amount=x
+3. POST /account/{resident_id}/debit?&amount=x
 
 It takes two request parameters resident_id and amount to be credited. This API call also updates the cashback that the user gets as a reward. This cashback is calculated based on certain percentage which can be set in the payubank.properties file.
 
 Returns: JSON response containing either the success or error message along with the updated account balance.
 
-    Sample API Call: localhost:8080/transactions/credit?resident_id=abhi&amount=1000
+    Sample API Call: localhost:8080/account/abhi/debit?amount=1000
     Sample Response: {
       "Current Account Balance": 1200,
       "Success": "Debited account with 1000.0"
