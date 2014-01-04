@@ -1,14 +1,21 @@
 package com.springapp.mvc.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * @author: abgupta
  * @Date: 1/2/14
  * @Time: 11:51 AM
  */
 public class Account {
+    @Getter @Setter
     private String residentId;
+    @Getter @Setter
     private double amount;
+    @Getter @Setter
     private double amountBlocked;
+    @Getter @Setter
     private double bonusBitcoins;
 
     public Account(){}
@@ -17,37 +24,5 @@ public class Account {
         this.amount = amount;
         this.amountBlocked = amountBlocked;
         this.bonusBitcoins = bonusBitcoins;
-    }
-
-    public void setResidentId(String residentId) {
-        this.residentId = residentId;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-
-    public void setAmountBlocked(double amountBlocked) {
-        this.amountBlocked = amountBlocked;
-    }
-
-    public void setBonusBitcoins(double bonusBitcoins) {
-        this.bonusBitcoins = bonusBitcoins;
-    }
-
-    public String getResidentId() {
-        return residentId;
-    }
-
-    public double getAmount() {
-        return amount;
-    }
-
-    public double getAmountBlocked() {
-        return amountBlocked;
-    }
-
-    public double getBonusBitcoins() {
-        return bonusBitcoins;
     }
 }

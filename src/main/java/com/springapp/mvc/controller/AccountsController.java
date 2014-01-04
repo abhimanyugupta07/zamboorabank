@@ -23,12 +23,12 @@ import java.util.List;
  * @Time: 12:00 PM
  */
 @Controller
-@RequestMapping("/accounts")
+@RequestMapping("/account")
 public class AccountsController {
 
     @Autowired private AccountService accountService;
 
-    @RequestMapping(value = "/info/{resident_id}", method = RequestMethod.GET,produces= MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "{resident_id}/info", method = RequestMethod.GET,produces= MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody String getAccountInfo (@PathVariable("resident_id") String residentId,@RequestParam(value="number", required=false) String number) {
 
         int numberTransactions;
@@ -43,5 +43,20 @@ public class AccountsController {
         }
         return accountService.info(residentId, numberTransactions);
     }
+
+    private @Autowired com.springapp.mvc.service.TransactionService transactionService;
+    @RequestMapping(value = "{resident_id}/credit", method = RequestMethod.POST,produces= MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody String creditAmount (@PathVariable(value="resident_id") String residentId,
+                                              @RequestParam(value="amount") double amount) throws IOException {
+
+        return transactionService.transact(residentId,amount,true);
+    }
+
+    @RequestMapping(value = "{resident_id}/debit", method = RequestMethod.POST,produces= MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody String DebitAmount (@PathVariable(value="resident_id") String residentId,
+                                             @RequestParam(value="amount") double amount) throws IOException {
+        return transactionService.transact(residentId,amount,false);
+    }
+
 
 }

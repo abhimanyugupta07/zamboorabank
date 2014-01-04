@@ -11,8 +11,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
@@ -32,7 +30,9 @@ public class TransactionService {
     @Autowired private Environment env;
 
     private static SessionFactory factory = HibernateUtilities.getSessionFactory();
-    public String credit(String residentId, double amount) {
+
+    public String transact(String residentId, double amount, boolean isCredit) {
+        if (!isCredit) amount = -amount;
         String transactionId = PayUUtilities.getTransactionId();
         Date timestamp = new Date();
         TransactionEntry entry = new TransactionEntry(residentId,amount,transactionId, timestamp);
@@ -40,7 +40,7 @@ public class TransactionService {
         String response = null;
         try {
             addTransaction(entry,session);
-            response = updateAccountBalance(residentId,amount,session,true);
+            response = updateAccountBalance(residentId,amount,session,isCredit);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -52,31 +52,6 @@ public class TransactionService {
         if (response == null) {
             JSONObject object = new JSONObject();
             object.put("Error","Unable to process this request");
-        }
-        return response;
-    }
-
-    public String debit(String residentId, double amount) {
-        String transactionId = PayUUtilities.getTransactionId();
-        Date timestamp = new Date();
-        TransactionEntry entry = new TransactionEntry(residentId,-amount,transactionId, timestamp);
-        Session session = factory.openSession();
-        String response = null;
-        try {
-            addTransaction(entry,session);
-            response = updateAccountBalance(residentId,amount,session,false);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        finally {
-            session.close();
-        }
-        //       return null;
-        if (response == null) {
-            JSONObject object = new JSONObject();
-            object.put("Error","Unable to process this request");
-            response = object.toJSONString();
         }
         return response;
     }
