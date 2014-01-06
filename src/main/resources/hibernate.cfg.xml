@@ -22,7 +22,6 @@
 
 
         <!-- List of XML mapping files -->
-        <mapping resource="activedeals.hbm.xml"/>
         <mapping resource="transactions.hbm.xml"/>
         <mapping resource="summary.hbm.xml"/>
     </session-factory>
