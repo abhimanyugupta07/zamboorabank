@@ -1,5 +1,6 @@
 package com.springapp.mvc.model;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,14 +9,15 @@ import lombok.Setter;
  * @Date: 1/2/14
  * @Time: 11:51 AM
  */
+@Data
 public class Account {
-    @Getter @Setter
+
     private String residentId;
-    @Getter @Setter
+
     private double amount;
-    @Getter @Setter
+
     private double amountBlocked;
-    @Getter @Setter
+
     private double bonusBitcoins;
 
     public Account(){}

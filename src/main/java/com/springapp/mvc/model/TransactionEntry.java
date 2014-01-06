@@ -1,5 +1,6 @@
 package com.springapp.mvc.model;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -15,22 +16,17 @@ import java.util.Date;
  * @Date: 1/2/14
  * @Time: 11:50 AM
  */
-
+@Data
 public class TransactionEntry {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="uniqueId")
-    @Getter @Setter
     private int uniqueId;
-    @Getter @Setter
     private String residentId;
-    @Getter @Setter
     private double amount;
-    @Getter @Setter
     private String transactionId;
 
-    @Getter @Setter
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date timestamp;
 
